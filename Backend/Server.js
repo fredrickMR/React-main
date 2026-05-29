@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const ldap = require('ldapjs')
 const app = express();
 app.use(express.json());
@@ -20,6 +21,13 @@ function authenticateAD(username, password)
                 client.unbind();
                 return resolve(false)
             }
+
+            const userForToken = {
+                username: username,
+                // id: user._id,
+            }
+
+            const token = jwt.sign(userForToken, process.env.SECRET)
 
             console.log("LDAP SUCCESS");
 
@@ -54,7 +62,7 @@ app.post('/api/login', async (req, res) => {
 
         return res.json({
             success: true,
-            username
+            token
         });
 
     } catch (err) {
