@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const ldap = require('ldapjs')
 const app = express();
@@ -21,13 +22,6 @@ function authenticateAD(username, password)
                 client.unbind();
                 return resolve(false)
             }
-
-            const userForToken = {
-                username: username,
-                // id: user._id,
-            }
-
-            const token = jwt.sign(userForToken, process.env.SECRET)
 
             console.log("LDAP SUCCESS");
 
@@ -60,9 +54,15 @@ app.post('/api/login', async (req, res) => {
             return res.json({ success: false });
         }
 
+            const userForToken = {
+                username: username,
+            }
+
+            const token = jwt.sign(userForToken, process.env.SECRET)
+
         return res.json({
             success: true,
-            token
+            token: token
         });
 
     } catch (err) {
