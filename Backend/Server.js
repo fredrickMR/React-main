@@ -24,7 +24,7 @@ function authenticateAD(username, password)
             }
 
             const options = {
-                filter: '(userPrincipalName=${userPrincipal})',
+                filter: `(userPrincipalName=${userPrincipal})`,
                 scope: 'sub',
                 attributes: ['memberOf', 'cn']
             };
