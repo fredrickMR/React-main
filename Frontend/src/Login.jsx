@@ -29,8 +29,10 @@ function Login() {
       switch(roles[0])
       {
           case "Mekanikere":
-              return(<Navigate to="/mekaniker"/>);
+              navigate("/mekaniker")
               break;
+          case "Service":
+              navigate("/service")
       };
     } else {
       alert("Login failed");

@@ -3,12 +3,18 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { jsx } from 'react/jsx-runtime';
 
-function dashboard()
+function Service()
 {
     const token = localStorage.getItem("token");
 
     if(!token)
     {
+        return (<Navigate to="/" />)
+    }
+
+    function logout()
+    {
+        localStorage.removeItem("token");
         return (<Navigate to="/" />)
     }
 
@@ -18,8 +24,9 @@ function dashboard()
         <div>
             <h1>Dashboard</h1>
             <p>You are logged in as {parsed.username}</p>
+            <button onClick={logout}>Logout</button>
         </div>
     )
 }
 
-export default dashboard;
+export default Service;

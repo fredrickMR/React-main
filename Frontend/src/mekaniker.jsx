@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { jsx } from 'react/jsx-runtime';
 
 
-function dashboard()
+function mekaniker()
 {
     const token = localStorage.getItem("token");
 
@@ -30,4 +30,4 @@ function dashboard()
     )
 }
 
-export default dashboard;
+export default mekaniker;

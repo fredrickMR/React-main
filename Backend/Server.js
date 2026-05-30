@@ -1,9 +1,35 @@
+import pg from 'pg'
+const {Pool, Client} = pg
 const express = require('express');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const ldap = require('ldapjs')
 const app = express();
 app.use(express.json());
+
+const pool = new Pool({
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    host: process.env.PGHOST,
+    port: process.env.PGPORT,
+    database: process.env.PGDATABASE,
+})
+
+console.log(await pool.query('SELECT NOW()'))
+
+const client = new Client({
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    host: process.env.PGHOST,
+    port: process.env.PGPORT,
+    database: process.env.PGDATABASE,
+})
+
+await client.connect()
+
+console.log(await client.query('SELECT NOW()'))
+
+await client.end()
 
 function authenticateAD(username, password)
 {
@@ -106,6 +132,10 @@ app.post('/api/login', async (req, res) => {
         });
     }
 });
+
+// app.post('/api/createbike', async (req, res) => {
+//     const {}
+// })
 
 app.listen(3000, "127.0.0.1", () => {
     console.log("Backend running")
