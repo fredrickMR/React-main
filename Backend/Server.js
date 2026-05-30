@@ -26,7 +26,7 @@ function authenticateAD(username, password)
             const options = {
                 filter: `(sAMAccountName=${username})`,
                 scope: 'sub',
-                attributes: ['memberOf', 'cn']
+                attributes: ['memberOf']
             };
             
             console.log("options:", options);
