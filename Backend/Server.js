@@ -31,7 +31,7 @@ function authenticateAD(username, password)
 
             
             
-            client.search("dc=sykkel; dc=as;", options, (err, searchRes) => {
+            client.search("dc=sykkel, dc=as", options, (err, searchRes) => {
                 searchRes.on('searchEntry', (entry) => {
                     const userGroups = entry.object.memberOf || [];
                     // const userGroups = entry.object.ou || [];
@@ -40,12 +40,14 @@ function authenticateAD(username, password)
                         const match = group.match(/^OU=([^,]+)/);
                         return match ? match[1] : null;
                     }).filter(Boolean);
+
+                    resolve({roles: roles, success: true})
                 });
             });
             console.log("LDAP SUCCESS");
 
             client.unbind();
-            resolve({roles: roles, success: true})
+            // resolve({roles: roles, success: true})
         });
 
         client.on('error', (err) =>
