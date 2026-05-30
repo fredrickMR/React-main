@@ -1,4 +1,4 @@
-import pg from 'pg'
+const pg = require('pg');
 const {Pool, Client} = pg
 const express = require('express');
 require('dotenv').config();
