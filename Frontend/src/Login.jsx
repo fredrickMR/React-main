@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
 
   async function AuthLogin(e) {
@@ -22,7 +21,17 @@ function Login() {
 
     if (data.success) {
       localStorage.setItem("token",  data.token)
-      navigate('/dashboard');
+      localStorage.setItem("roles", data.roles)
+
+      const token = localStorage.getItem("token");
+      const roles = localStorage.getItem("roles");
+
+      switch(roles[0])
+      {
+          case "Mekanikere":
+              return(<Navigate to="/mekaniker"/>);
+              break;
+      };
     } else {
       alert("Login failed");
     }

@@ -5,7 +5,6 @@ import { jsx } from 'react/jsx-runtime';
 
 function dashboard()
 {
-    const token = localStorage.getItem("token");
 
     if(!token)
     {
@@ -14,10 +13,17 @@ function dashboard()
 
     const parsed = JSON.parse(atob(token.split(".")[1]));
 
+    function logout()
+    {
+        localStorage.removeItem("token");
+        return (<Navigate to="/" />)
+    }
+
     return(
         <div>
             <h1>Dashboard</h1>
             <p>You are logged in as {parsed.username}</p>
+            <button onClick={logout}>Logout</button>
         </div>
     )
 }

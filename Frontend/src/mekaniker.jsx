@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { jsx } from 'react/jsx-runtime';
 
+
 function dashboard()
 {
     const token = localStorage.getItem("token");
@@ -12,12 +13,19 @@ function dashboard()
         return (<Navigate to="/" />)
     }
 
+    function logout()
+    {
+        localStorage.removeItem("token");
+        return (<Navigate to="/" />)
+    }
+
     const parsed = JSON.parse(atob(token.split(".")[1]));
 
     return(
         <div>
             <h1>Dashboard</h1>
             <p>You are logged in as {parsed.username}</p>
+            <button onClick={logout}>Logout</button>
         </div>
     )
 }
