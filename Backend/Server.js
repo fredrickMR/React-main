@@ -24,16 +24,18 @@ function authenticateAD(username, password)
             }
 
             const options = {
-                filter: `(userPrincipalName=${userPrincipal})`,
+                filter: `(sAMAccountName=${username})`,
                 scope: 'sub',
                 attributes: ['memberOf', 'cn']
             };
-
+            
+            console.log("options:", options);
             
             let roles = []
 
             client.search("dc=sykkelfix, dc=as", options, (err, searchRes) => {
                 searchRes.on('searchEntry', (entry) => {
+                    console.log("entry: ", entry.object)
                     const userGroups = entry.object.memberOf || [];
                     // const userGroups = entry.object.ou || [];
 
@@ -42,7 +44,7 @@ function authenticateAD(username, password)
                         return match ? match[1] : null;
                     }).filter(Boolean);
 
-                    console.log(roles);
+                    console.log("Roles:", roles);
                 });
 
                 searchRes.on('end', () => {
