@@ -16,12 +16,12 @@ function Service()
     function logout()
     {
         localStorage.removeItem("token");
-        return (<Navigate to="/" />)
+        Navigate("/");
     }
 
     const parsed = JSON.parse(atob(token.split(".")[1]));
 
-    async function GetBikes(e) {
+    async function GetBikes() {
         const result = await fetch ('/api/bike/get', {
             method: 'GET',
             headers: {
