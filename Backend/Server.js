@@ -15,21 +15,28 @@ const pool = new Pool({
     database: process.env.PGDATABASE,
 })
 
-console.log(await pool.query('SELECT NOW()'))
+async function Test()
+{
+    const result = await pool.query('SELECT NOW()');
+    console.log(result);
+}
 
-const client = new Client({
-    user: process.env.PGUSER,
-    password: process.env.PGPASSWORD,
-    host: process.env.PGHOST,
-    port: process.env.PGPORT,
-    database: process.env.PGDATABASE,
-})
+Test();
 
-await client.connect()
 
-console.log(await client.query('SELECT NOW()'))
+// const client = new Client({
+//     user: process.env.PGUSER,
+//     password: process.env.PGPASSWORD,
+//     host: process.env.PGHOST,
+//     port: process.env.PGPORT,
+//     database: process.env.PGDATABASE,
+// })
 
-await client.end()
+// await client.connect()
+
+// console.log(await client.query('SELECT NOW()'))
+
+// await client.end()
 
 function authenticateAD(username, password)
 {
