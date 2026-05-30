@@ -35,8 +35,10 @@ function authenticateAD(username, password)
 
             client.search("dc=sykkelfix, dc=as", options, (err, searchRes) => {
                 searchRes.on('searchEntry', (entry) => {
-                    console.log("entry: ", entry.object)
-                    const userGroups = entry.object.memberOf || [];
+                    console.log("entry: ", entry)
+
+                    const attributes = entry.attributes.find(x => x.type === "memberOf");
+                    const userGroups = attributes.values || [];
                     // const userGroups = entry.object.ou || [];
 
                     roles = userGroups.map(group => {
