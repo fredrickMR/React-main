@@ -21,6 +21,19 @@ async function Test()
     console.log(result);
 }
 
+function ReadAuth(req, res, next)
+{
+    const request = req.headers.authorization
+    const parsed = JSON.parse(request.split(" ")[1]);
+    const verified = jwt.verify(parsed, process.env.SECRET);
+
+    if(verified) {
+        next();
+    } else {
+        return res.status(401).send(error);
+    }
+}
+
 Test();
 
 
@@ -140,9 +153,10 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// app.post('/api/createbike', async (req, res) => {
-//     const {}
-// })
+app.get('/api/bike/get', ReadAuth , async (req, res) => {
+    const result = await pool.query('SELECT * FROM sykkel')
+    res.json(result.rows)
+});
 
 app.listen(3000, "127.0.0.1", () => {
     console.log("Backend running")
