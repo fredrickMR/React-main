@@ -30,13 +30,14 @@ function authenticateAD(username, password)
             };
 
             
-            
-            client.search("dc=sykkel, dc=as", options, (err, searchRes) => {
+            let roles = []
+
+            client.search("dc=sykkelfix, dc=as", options, (err, searchRes) => {
                 searchRes.on('searchEntry', (entry) => {
                     const userGroups = entry.object.memberOf || [];
                     // const userGroups = entry.object.ou || [];
 
-                    const roles = userGroups.map(group => {
+                    roles = userGroups.map(group => {
                         const match = group.match(/^OU=([^,]+)/);
                         return match ? match[1] : null;
                     }).filter(Boolean);
