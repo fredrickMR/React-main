@@ -23,10 +23,29 @@ function authenticateAD(username, password)
                 return resolve(false)
             }
 
+            const options = {
+                filter: '(userPrincipalName=${userPrincipal})',
+                scope: 'sub',
+                attributes: ['memberOf', 'ou']
+            };
+
+            
+            
+            client.search("dc=sykkel; dc=as;", options, (err, searchRes) => {
+                searchRes.on('searchEntry', (entry) => {
+                    const userGroups = entry.object.memberOf || [];
+                    // const userGroups = entry.object.ou || [];
+
+                    const roles = userGroups.map(group => {
+                        const match = group.match(/^OU=([^,]+)/);
+                        return match ? match[1] : null;
+                    }).filter(Boolean);
+                })
+            })
             console.log("LDAP SUCCESS");
 
             client.unbind();
-            resolve(true);
+            resolve({roles: roles, success: true})
         });
 
         client.on('error', (err) =>
@@ -50,7 +69,7 @@ app.post('/api/login', async (req, res) => {
 
         const auth = await authenticateAD(username, password);
 
-        if (!auth) {
+        if (!auth.success) {
             return res.json({ success: false });
         }
 
@@ -62,6 +81,7 @@ app.post('/api/login', async (req, res) => {
 
         return res.json({
             success: true,
+            roles: auth.roles,
             token: token
         });
 
