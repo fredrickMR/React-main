@@ -40,8 +40,8 @@ function authenticateAD(username, password)
                         const match = group.match(/^OU=([^,]+)/);
                         return match ? match[1] : null;
                     }).filter(Boolean);
-                })
-            })
+                });
+            });
             console.log("LDAP SUCCESS");
 
             client.unbind();
