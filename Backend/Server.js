@@ -26,7 +26,7 @@ function authenticateAD(username, password)
             const options = {
                 filter: '(userPrincipalName=${userPrincipal})',
                 scope: 'sub',
-                attributes: ['memberOf', 'ou']
+                attributes: ['memberOf', 'cn']
             };
 
             
@@ -38,9 +38,11 @@ function authenticateAD(username, password)
                     // const userGroups = entry.object.ou || [];
 
                     roles = userGroups.map(group => {
-                        const match = group.match(/^OU=([^,]+)/);
+                        const match = group.match(/^CN=([^,]+)/);
                         return match ? match[1] : null;
                     }).filter(Boolean);
+
+                    console.log(roles);
                 });
 
                 searchRes.on('end', () => {
