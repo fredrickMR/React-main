@@ -154,29 +154,80 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.get('/api/bike/getall', ReadAuth , async (req, res) => {
-    const result = await pool.query('SELECT * FROM sykkler')
-    res.json(result.rows)
+    try{
+        const result = await pool.query('SELECT * FROM sykkler')
+        res.json(result.rows)
+    } catch(error)
+    {
+        console.error("GetAll Failed", error);
+    }
 });
 
 app.get('/api/bike/get/:id', ReadAuth, async (req, res) => {
-    const bikeid = req.params.id
+    try{
+        const bikeid = req.params.id
 
-    const result = await pool.query(
-        'SELECT * FROM sykkler WHERE id = $1',
-        [bikeid]
-    );
+        const result = await pool.query(
+            'SELECT * FROM sykkler WHERE id = $1',
+            [bikeid]
+        );
 
-    res.json(result.rows[0]);
+        if(result.rows.length == 0)
+        {
+            return console.log("Result was empty");
+        }
+
+        res.json(result.rows[0]);
+    } catch(error)
+    {
+        console.error("Get failed", error);
+    }
 })
 
 app.post('/api/bike/post', ReadAuth, async(req, res) => {
-    const {name, id} = req.body;
-    const result = await pool.query(
-        'INSERT INTO sykkler (model_sykkelnavn, id) VALUES ($1, $2) RETURNING *',
-        [name, id]
-    );
+    try{
+        const {bikename, bikeownerId} = req.body;
+        const result = await pool.query(
+            'INSERT INTO sykkler (model_sykkelnavn, kunde_id) VALUES ($1, $2) RETURNING *',
+            [bikename, bikeownerId]
+        );
 
-    res.json(result.rows[0]);
+        res.json(result.rows[0]);
+    } catch (error)
+    {
+        console.error("Post Failed", error);
+    }
+
+})
+
+app.put('/api/bike/put/:id', ReadAuth, async(req, res) => {
+    try{
+        const {bikename, bikeownerId} = req.body;
+        const bikeid = req.params.id;
+
+        const result = await pool.query(
+            'UPDATE sykkler SET model_sykkelnavn = $1, kunde_id = $2 WHERE id = $3 RETURNING *',
+            [bikename, bikeownerId, bikeid]
+        );
+        res.json(result.rows[0]);
+    } catch (error)
+    {
+        console.error("Put Failed", error);
+    }
+})
+
+app.delete('/api/bike/delete/:id', ReadAuth, async(req, res) => {
+    try{
+        const bikeid = req.params.id;
+        const result = await pool.query(
+            'DELETE FROM sykkler WHERE id = $1 RETURNING *'
+            [bikeid]
+        );
+        res.json(result.rows[0]);
+    } catch(error)
+    {
+        console.error("Delete Failed", error);
+    }
 })
 
 app.listen(3000, "127.0.0.1", () => {

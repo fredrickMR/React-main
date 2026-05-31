@@ -9,6 +9,7 @@ function Service()
     const navigate = useNavigate();
     const [bikes, setBikes] = useState([]);
     const [bike, setBike] = useState([]);
+
     const [id, setId] = useState(0);
     const [bikename, setBikename] = useState("");
     const [bikeownerId, setBikeOwner] = useState(0);
@@ -27,45 +28,99 @@ function Service()
     const parsed = JSON.parse(atob(token.split(".")[1]));
 
     async function GetBikes() {
-        const result = await fetch ('/api/bike/getall', {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        });
+        try{
+            const result = await fetch ('/api/bike/getall', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
-        const data = await result.json();
-
-        console.log(data);
-
-        setBikes(data);
+            const data = await result.json();
+            console.log(data);
+            setBikes(data);
+        } catch (error)
+        {
+            console.error("Frontend GetBikes Failed", error)
+        }
     }
 
     async function GetBike(_id) {
-        const result = await fetch(`/api/bike/get/${_id}`, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+        try{
+            const result = await fetch(`/api/bike/get/${_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            });
 
-        const data = await result.json();
-        console.log(data);
-        setBike(data);
+            const data = await result.json();
+            console.log(data);
+            setBike(data);
+        } catch(error)
+        {
+            console.error("Frontend Get bike failed", error);
+        }
     }
 
     async function CreateBike(){
-        const res = await fetch('/api/bike/post', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify({bikename, bikeownerId})
-        });
+        try{
+            const result = await fetch('/api/bike/post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({bikename, bikeownerId})
+            });
 
-        const data = await result.json();
-        console.log(data);
+            const data = await result.json();
+            console.log(data);
+        } catch(error)
+        {
+            console.error("Frontend Create Failed", error);
+        }
+    }
+
+    async function DeleteBike(_id)
+    {
+        try{
+            const result = await fetch(`/api/bike/delete/${_id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            const data = await result.json();
+            console.log(data);
+        } catch(error)
+        {
+            console.error("Frontend Delete Failed", error);
+        }
+    }
+
+    async function PutBike(_id)
+    {
+        try{
+            const result = await fetch(`/api/bike/put/${_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({bikename, bikeownerId})
+            });
+
+            const data = await result.json();
+            console.log(data);
+        } catch (error)
+        {
+            console.error("Frontend Put Failed", error);
+        }
     }
 
     return(
@@ -97,6 +152,32 @@ function Service()
                     onChange={(e) => setBikename(e.target.value)}/>
                 <br />
                 <button onClick={CreateBike}>CreateBike</button>
+            </div>
+            <div>
+                <input
+                    type="number"
+                    placeholder="Id"
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}/>
+                <input
+                    type="text"
+                    placeholder="bikename"
+                    value={bikename}
+                    onChange={(e) => setBikename(e.target.value)}/>
+                <input
+                    type="number"
+                    placeholder="bikeowner"
+                    value={bikeownerId}
+                    onChange={(e) => bikeownerId(e.target.value)}/>
+                <button onClick={PutBike}>PutBike</button>
+            </div>
+            <div>
+                <input
+                    type="number"
+                    placeholder="Id"
+                    value={id}
+                    onChange={(e) => setId(e.target.value)}/>
+                <button onClick={DeleteBike}>DeleteBike</button>
             </div>
         </main>
     )
