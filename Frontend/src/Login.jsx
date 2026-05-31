@@ -26,13 +26,20 @@ function Login() {
       const token = localStorage.getItem("token");
       const roles = JSON.parse(localStorage.getItem("roles"));
 
-      switch(roles[0])
+      switch(true)
       {
-          case "Service":
+          case roles.includes("Service"):
               navigate("/service")
               break;
-          case "Mekaniker":
+          case roles.include("Mekaniker"):
               navigate("/mekaniker")
+              break;
+          case roles.include("Admin"):
+              navigate("/admin")
+              break;
+          default:
+              navigate("/")
+              break;
       };
     } else {
       alert("Login failed");

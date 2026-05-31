@@ -14,8 +14,12 @@ function App() {
     <Route path="/admin" element={
       <ProtectedRoute allowedrole={"Admin"}> <Administrator /> </ProtectedRoute>
     } />
-    <Route path="/mekaniker" element={<Mekaniker />} />
-    <Route path="/service" element={<Service />} />
+    <Route path="/mekaniker" element={
+      <ProtectedRoute allowedrole={"Mekaniker"}> <Mekaniker /> </ProtectedRoute>
+    } />
+    <Route path="/service" element={
+      <ProtectedRoute allowedrole={"Service"}> <Service /> </ProtectedRoute>
+    } />
   </Routes>)
 }
 
