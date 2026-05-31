@@ -18,7 +18,8 @@ function ProtectedRoute({ children, allowedrole }) {
 
     if(!roles.includes(allowedrole))
     {
-        return (<Navigate to={location.pathname || "/"} />)
+        const page = localStorage.getItem("lastpage") || "/";
+        return (<Navigate to={page} />)
     }
 
   return children

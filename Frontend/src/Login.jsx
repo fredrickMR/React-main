@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   async function AuthLogin(e) {
     e.preventDefault();
@@ -22,7 +23,8 @@ function Login() {
     if (data.success) {
       localStorage.setItem("token",  data.token)
       localStorage.setItem("roles", JSON.stringify(data.roles))
-      
+      localStorage.setItem("lastpage", location.pathname)
+
       const roles = JSON.parse(localStorage.getItem("roles"));
 
       switch(true)
