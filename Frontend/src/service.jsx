@@ -185,14 +185,21 @@ function Service()
                 </div>
 
                 <div className='results'>
-                    {result.length > 0 && result.map(bike => 
+                    {Array.isArray(result) ? result.map(bike => 
                         <div key={bike.id} className='bike-card'>
                             <p>Id: {bike.id}</p> 
                             <p>Name: {bike.model_sykkelnavn}</p>
                             <p>Owner: {bike.kunde_id}</p>
-                            <button onClick={() => DeleteBike(bike.id)}>Click me</button>
+                            <button onClick={() => DeleteBike(bike.id)}>Delete</button>
                         </div>
-                    )}
+                    ) : result ? (
+                        <div className='bike-card'>
+                            <p>Id: {result.id}</p> 
+                            <p>Name: {result.model_sykkelnavn}</p>
+                            <p>Owner: {result.kunde_id}</p>
+                            <button onClick={() => DeleteBike(bike.id)}>Delete</button>
+                        </div>
+                    ) : null}
                 </div>
             </div>
         </main>
