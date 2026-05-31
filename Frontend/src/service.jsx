@@ -6,6 +6,7 @@ import { jsx } from 'react/jsx-runtime';
 function Service()
 {
     const token = localStorage.getItem("token");
+    const roles = localStorage.getItem("roles");
     const navigate = useNavigate();
     const [bikes, setBikes] = useState([]);
     const [bike, setBike] = useState([]);
@@ -16,7 +17,7 @@ function Service()
 
     const [result, setResult] = useState([]);
 
-    if(!token)
+    if(!token && roles != "Admin" || !token && roles != "Service")
     {
         return (<Navigate to="/" />)
     }
@@ -28,6 +29,10 @@ function Service()
     }
 
     const parsed = JSON.parse(atob(token.split(".")[1]));
+
+
+
+    
 
     async function GetBikes() {
         try{

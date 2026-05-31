@@ -35,6 +35,22 @@ function ReadAuth(req, res, next)
     }
 }
 
+function ReadRole(allowedrole)
+{
+    return (req, res, next) => {
+        const role = req.user.role;
+        if(role == "Admin")
+        {
+            next();
+        }
+        if(role != allowedrole)
+        {
+            return res.status(403).send('Access denied');
+        }
+        next();
+    }
+}
+
 Test();
 
 
