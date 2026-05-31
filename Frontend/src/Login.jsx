@@ -21,14 +21,12 @@ function Login() {
 
     if (data.success) {
       localStorage.setItem("token",  data.token)
-      localStorage.setItem("roles", data.roles)
+      localStorage.setItem("roles", JSON.stringify(data.roles))
 
       const token = localStorage.getItem("token");
-      const roles = localStorage.getItem("roles");
+      const roles = JSON.parse(localStorage.getItem("roles"));
 
-      console.log(roles[0]);
-
-      switch(data.roles[0])
+      switch(roles[0])
       {
           case "Service":
               navigate("/service")

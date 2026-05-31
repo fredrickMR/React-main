@@ -10,6 +10,7 @@ function Service()
     const [bikes, setBikes] = useState([]);
     const [bike, setBike] = useState([]);
     const [id, setId] = useState(0);
+    const [bikename, setBikename] = useState("");
 
     if(!token)
     {
@@ -52,6 +53,20 @@ function Service()
         setBike(data);
     }
 
+    async function CreateBike(){
+        const res = await fetch('/api/bike/post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({bikename})
+        });
+
+        const data = await result.json();
+        console.log(data);
+    }
+
     return(
         <main>
             <div>
@@ -67,6 +82,15 @@ function Service()
                 <h1>GetBike</h1>
                 <input type="number" placeholder='Id' value={id} onChange={e => setId(e.target.value)}></input>
                 <button onClick={() => GetBike(id)}>GetBikes</button>
+            </div>
+            <div>
+                <input
+                    type="text"
+                    placeholder="bikename"
+                    value={bikename}
+                    onChange={(e) => setBikename(e.target.value)}/>
+                <br />
+                <button onClick={CreateBike}>CreateBike</button>
             </div>
         </main>
     )

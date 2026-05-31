@@ -169,6 +169,16 @@ app.get('/api/bike/get/:id', ReadAuth, async (req, res) => {
     res.json(result.rows[0]);
 })
 
+app.post('/api/bike/post', ReadAuth, async(req, res) => {
+    const name = req.body;
+    const result = await pool.query(
+        'INSERT INTO sykkler (model_sykkelnavn) VALUES ($1) RETURNING *',
+        [name]
+    );
+
+    res.json(result.rows[0]);
+})
+
 app.listen(3000, "127.0.0.1", () => {
     console.log("Backend running")
 });
