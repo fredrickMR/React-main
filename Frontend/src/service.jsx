@@ -164,8 +164,8 @@ function Service()
 
     return(
         <main>
-            <div>
-                <div className='servicepage'>
+            <div className='servicepage'>
+                <div>
                     <h1>Dashboard</h1>
                     <p>You are logged in as {parsed.username}</p>
                     <button onClick={logout}>Logout</button>
