@@ -186,16 +186,17 @@ function Service()
 
                 <div className='results'>
                     {result.length > 0 && result.map(bike => 
-                        <div key={bike.id}>
-                            <p>Id: {bike.id}</p>
+                        <div key={bike.id} className='bike-card'>
+                            <p>Id: {bike.id}</p> 
                             <p>Name: {bike.model_sykkelnavn}</p>
                             <p>Owner: {bike.kunde_id}</p>
+                            <button onClick={() => DeleteBike(bike.id)}>Click me</button>
                         </div>
                     )}
                 </div>
             </div>
         </main>
-    )
+    ) 
 }
 
 export default Service;

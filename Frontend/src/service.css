@@ -3,7 +3,7 @@
     color: white;
     display: flex;
     align-items: center;
-    height: 100vh;
+    flex-direction: column;
 }
 .buttons button{
     padding: 10px;
@@ -36,4 +36,13 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.bike-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    background: white;
 }
