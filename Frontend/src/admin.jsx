@@ -6,7 +6,7 @@ import { jsx } from 'react/jsx-runtime';
 function Dashboard()
 {
     const token = localStorage.getItem("token");
-    const token = localStorage.getItem("roles");
+    const roles = localStorage.getItem("roles");
     const navigate = useNavigate();
 
     if(!token)

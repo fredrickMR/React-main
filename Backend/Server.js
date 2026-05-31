@@ -27,6 +27,11 @@ function ReadAuth(req, res, next)
     const parsed = request.split(" ")[1];
     const verified = jwt.verify(parsed, process.env.SECRET);
 
+    if(!request)
+    {
+        return res.status(401).send(error);
+    }
+
     if(verified) {
         req.user = verified;
         next();

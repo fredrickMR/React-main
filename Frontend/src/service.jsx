@@ -26,11 +26,12 @@ function Service()
     {
         localStorage.removeItem("token");
         localStorage.removeItem("roles");
+        console.log(localStorage.getItem("token"));
+        console.log(localStorage.getItem("roles"));
         navigate("/");
     }
 
     const parsed = JSON.parse(atob(token.split(".")[1]));
-
 
 
     

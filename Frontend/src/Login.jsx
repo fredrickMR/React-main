@@ -22,8 +22,7 @@ function Login() {
     if (data.success) {
       localStorage.setItem("token",  data.token)
       localStorage.setItem("roles", JSON.stringify(data.roles))
-
-      const token = localStorage.getItem("token");
+      
       const roles = JSON.parse(localStorage.getItem("roles"));
 
       switch(true)
@@ -31,10 +30,10 @@ function Login() {
           case roles.includes("Service"):
               navigate("/service")
               break;
-          case roles.include("Mekaniker"):
+          case roles.includes("Mekanikere"):
               navigate("/mekaniker")
               break;
-          case roles.include("Admin"):
+          case roles.includes("Admin"):
               navigate("/admin")
               break;
           default:
