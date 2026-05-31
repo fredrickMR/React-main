@@ -56,16 +56,16 @@ function Service()
             <div>
                 <h1>Dashboard</h1>
                 <p>You are logged in as {parsed.username}</p>
-                <button onClick={logout}>Logout</button>
+                <button onClick={() => logout}>Logout</button>
             </div>
             <div>
                 <h1>GetALL</h1>
-                <button onClick={GetBikes}>GetBikes</button>
+                <button onClick={() => GetBikes}>GetBikes</button>
             </div>
             <div>
                 <h1>GetBike</h1>
                 <input type="number" placeholder='Id' value={id} onChange={e => setId(e.target.value)}></input>
-                <button onClick={GetBike(id)}>GetBikes</button>
+                <button onClick={() => GetBike(id)}>GetBikes</button>
             </div>
         </main>
     )
