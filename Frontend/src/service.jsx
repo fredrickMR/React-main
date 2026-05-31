@@ -173,7 +173,7 @@ function Service()
             </div>
 
             {result.length > 0 && result.map(bike => 
-                 <div key={bike}>
+                 <div key={bike.id}>
                     <p>Id: {bike.id}</p>
                     <p>Name: {bike.model_sykkelnavn}</p>
                     <p>Owner: {bike.kunde_id}</p>
