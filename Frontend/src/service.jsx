@@ -131,56 +131,14 @@ function Service()
                 <button onClick={logout}>Logout</button>
             </div>
             <div>
-                <h1>GetALL</h1>
-                <button onClick={GetBikes}>GetBikes</button>
-            </div>
-            <div>
-                <h1>GetBike</h1>
-                <input type="number" placeholder='Id' value={id} onChange={e => setId(e.target.value)}></input>
-                <button onClick={() => GetBike(id)}>GetBikes</button>
-            </div>
-            <div>
-                <h1>AddBike</h1>
-                <input
-                    type="number"
-                    placeholder="bikeownerId"
-                    value={bikeownerId}
-                    onChange={(e) => setBikeOwner(e.target.value)}/>
-                <input
-                    type="text"
-                    placeholder="bikename"
-                    value={bikename}
-                    onChange={(e) => setBikename(e.target.value)}/>
-                <br />
-                <button onClick={CreateBike}>CreateBike</button>
-            </div>
-            <div>
-                <h1>UpdateBike</h1>
-                <input
-                    type="number"
-                    placeholder="Id"
-                    value={id}
-                    onChange={(e) => setId(e.target.value)}/>
-                <input
-                    type="text"
-                    placeholder="bikename"
-                    value={bikename}
-                    onChange={(e) => setBikename(e.target.value)}/>
-                <input
-                    type="number"
-                    placeholder="bikeowner"
-                    value={bikeownerId}
-                    onChange={(e) => bikeownerId(e.target.value)}/>
-                <button onClick={PutBike}>PutBike</button>
-            </div>
-            <div>
-                <h1>DeleteBike</h1>
-                <input
-                    type="number"
-                    placeholder="Id"
-                    value={id}
-                    onChange={(e) => setId(e.target.value)}/>
-                <button onClick={DeleteBike}>DeleteBike</button>
+                <input type="number" placeholder='id' value={id} onChange={(e) => setId(e.target.value)}/>
+                <input type="text" placeholder='Bike name' value={bikename} onChange={(e) => setBikename(e.target.value)}/>
+                <input type="number" placeholder='Bike owner' value={bikeownerId} onChange={(e) => setBikeOwner(e.target.value)}/>
+                <button onClick={() => GetBike(id)}>GetBike</button> 
+                <button onClick={GetBikes}>GetBikes</button> 
+                <button onClick={CreateBike}>AddBike</button> 
+                <button onClick={() => PutBike(id)}>UpdateBike</button> 
+                <button onClick={() => DeleteBike(id)}>DeleteBike</button> 
             </div>
         </main>
     )
