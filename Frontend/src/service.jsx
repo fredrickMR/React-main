@@ -11,6 +11,7 @@ function Service()
     const [bike, setBike] = useState([]);
     const [id, setId] = useState(0);
     const [bikename, setBikename] = useState("");
+    const [bikeownerId, setBikeOwner] = useState(0);
 
     if(!token)
     {
@@ -60,7 +61,7 @@ function Service()
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({bikename})
+            body: JSON.stringify({bikeownerId, bikename})
         });
 
         const data = await result.json();
@@ -84,6 +85,11 @@ function Service()
                 <button onClick={() => GetBike(id)}>GetBikes</button>
             </div>
             <div>
+                <input
+                    type="number"
+                    placeholder="bikeownerId"
+                    value={bikeownerId}
+                    onChange={(e) => setBikeOwner(e.target.value)}/>
                 <input
                     type="text"
                     placeholder="bikename"
