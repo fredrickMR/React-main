@@ -61,7 +61,7 @@ function Service()
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({bikeownerId, bikename})
+            body: JSON.stringify({bikename, bikeownerId})
         });
 
         const data = await result.json();

@@ -170,10 +170,10 @@ app.get('/api/bike/get/:id', ReadAuth, async (req, res) => {
 })
 
 app.post('/api/bike/post', ReadAuth, async(req, res) => {
-    const {id, name} = req.body;
+    const {name, id} = req.body;
     const result = await pool.query(
-        'INSERT INTO sykkler (id,model_sykkelnavn) VALUES ($1, $2) RETURNING *',
-        [id, name]
+        'INSERT INTO sykkler (model_sykkelnavn, id) VALUES ($1, $2) RETURNING *',
+        [name, id]
     );
 
     res.json(result.rows[0]);
