@@ -154,7 +154,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.get('/api/bike/getall', ReadAuth , async (req, res) => {
-    const result = await pool.query('SELECT * FROM sykkel')
+    const result = await pool.query('SELECT * FROM sykkler')
     res.json(result.rows)
 });
 
@@ -162,7 +162,7 @@ app.get('/api/bike/get', ReadAuth, async (req, res) => {
     const bikeid = req.params.id
 
     const result = await pool.query(
-        'SELECT * FROM sykkel WHERE id = $1',
+        'SELECT * FROM sykkler WHERE id = $1',
         [bikeid]
     );
 
