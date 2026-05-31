@@ -14,6 +14,8 @@ function Service()
     const [bikename, setBikename] = useState("");
     const [bikeownerId, setBikeOwner] = useState(0);
 
+    const [result, setResult] = useState([]);
+
     if(!token)
     {
         return (<Navigate to="/" />)
@@ -38,8 +40,14 @@ function Service()
             });
 
             const data = await result.json();
+            setResult(data);
+
             console.log(data);
             setBikes(data);
+
+            setId(null);
+            setBikename("");
+            setBikeOwner(null);
         } catch (error)
         {
             console.error("Frontend GetBikes Failed", error)
@@ -57,8 +65,14 @@ function Service()
             });
 
             const data = await result.json();
+            setResult(data);
+
             console.log(data);
             setBike(data);
+
+            setId(null);
+            setBikename("");
+            setBikeOwner(null);
         } catch(error)
         {
             console.error("Frontend Get bike failed", error);
@@ -77,7 +91,13 @@ function Service()
             });
 
             const data = await result.json();
+            setResult(data);
+
             console.log(data);
+
+            setId(null);
+            setBikename("");
+            setBikeOwner(null);
         } catch(error)
         {
             console.error("Frontend Create Failed", error);
@@ -96,7 +116,13 @@ function Service()
             });
 
             const data = await result.json();
+            setResult(data);
+
             console.log(data);
+
+            setId(null);
+            setBikename("");
+            setBikeOwner(null);
         } catch(error)
         {
             console.error("Frontend Delete Failed", error);
@@ -116,7 +142,12 @@ function Service()
             });
 
             const data = await result.json();
+            setResult(data);
+
             console.log(data);
+            setId(null);
+            setBikename("");
+            setBikeOwner(null);
         } catch (error)
         {
             console.error("Frontend Put Failed", error);
@@ -140,6 +171,13 @@ function Service()
                 <button onClick={() => PutBike(id)}>UpdateBike</button> 
                 <button onClick={() => DeleteBike(id)}>DeleteBike</button> 
             </div>
+            {result && 
+                <div>
+                    <p>Id: {result.id}</p>
+                    <p>Name: {result.model_sykkelnavn}</p>
+                    <p>Owner: {result.kunde_id}</p>
+                </div>
+            }
         </main>
     )
 }

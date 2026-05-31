@@ -224,7 +224,7 @@ app.delete('/api/bike/delete/:id', ReadAuth, async(req, res) => {
     try{
         const bikeid = req.params.id;
         const result = await pool.query(
-            'DELETE FROM sykkler WHERE id = $1 RETURNING *'
+            'DELETE FROM sykkler WHERE id = $1 RETURNING *',
             [bikeid]
         );
         res.json(result.rows[0]);
