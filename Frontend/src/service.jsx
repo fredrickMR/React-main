@@ -25,6 +25,7 @@ function Service()
     function logout()
     {
         localStorage.removeItem("token");
+        localStorage.removeItem("roles");
         navigate("/");
     }
 

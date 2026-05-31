@@ -7,6 +7,7 @@ import { jsx } from 'react/jsx-runtime';
 function mekaniker()
 {
     const token = localStorage.getItem("token");
+    const roles = localStorage.getItem("roles");
     const navigate = useNavigate();
 
     if(!token)
@@ -17,6 +18,7 @@ function mekaniker()
     function logout()
     {
         localStorage.removeItem("token");
+        localStorage.removeItem("roles");
         return (<Navigate to="/" />)
     }
 
