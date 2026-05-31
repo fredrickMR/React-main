@@ -140,6 +140,7 @@ function Service()
                 <button onClick={() => GetBike(id)}>GetBikes</button>
             </div>
             <div>
+                <h1>AddBike</h1>
                 <input
                     type="number"
                     placeholder="bikeownerId"
@@ -154,6 +155,7 @@ function Service()
                 <button onClick={CreateBike}>CreateBike</button>
             </div>
             <div>
+                <h1>UpdateBike</h1>
                 <input
                     type="number"
                     placeholder="Id"
@@ -172,6 +174,7 @@ function Service()
                 <button onClick={PutBike}>PutBike</button>
             </div>
             <div>
+                <h1>DeleteBike</h1>
                 <input
                     type="number"
                     placeholder="Id"
