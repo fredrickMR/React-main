@@ -24,7 +24,7 @@ async function Test()
 function ReadAuth(req, res, next)
 {
     const request = req.headers.authorization
-    const parsed = JSON.parse(request.split(" ")[1]);
+    const parsed = request.split(" ")[1];
     const verified = jwt.verify(parsed, process.env.SECRET);
 
     if(verified) {
@@ -153,10 +153,21 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.get('/api/bike/get', ReadAuth , async (req, res) => {
+app.get('/api/bike/getall', ReadAuth , async (req, res) => {
     const result = await pool.query('SELECT * FROM sykkel')
     res.json(result.rows)
 });
+
+app.get('/api/bike/get', ReadAuth, async (req, res) => {
+    const bikeid = req.params.id
+
+    const result = await pool.query(
+        'SELECT * FROM sykkel WHERE id = $1',
+        [bikeid]
+    );
+
+    res.json(result.rows[0]);
+})
 
 app.listen(3000, "127.0.0.1", () => {
     console.log("Backend running")
