@@ -17,7 +17,7 @@ function Service()
 
     const [result, setResult] = useState([]);
 
-    if(!token && roles != "Admin" || !token && roles != "Service")
+    if(!token && roles != "Service")
     {
         return (<Navigate to="/" />)
     }
