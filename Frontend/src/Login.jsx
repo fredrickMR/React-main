@@ -26,7 +26,9 @@ function Login() {
       const token = localStorage.getItem("token");
       const roles = localStorage.getItem("roles");
 
-      switch(roles[0])
+      console.log(roles[0]);
+
+      switch(data.roles[0])
       {
           case "Service":
               navigate("/service")
