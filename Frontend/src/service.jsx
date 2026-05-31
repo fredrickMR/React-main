@@ -2,6 +2,7 @@ import { use, useState } from 'react';
 // import { Route, Routes } from 'react-router-dom';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { jsx } from 'react/jsx-runtime';
+import "./service.css"
 
 function Service()
 {
@@ -164,28 +165,35 @@ function Service()
     return(
         <main>
             <div>
-                <h1>Dashboard</h1>
-                <p>You are logged in as {parsed.username}</p>
-                <button onClick={logout}>Logout</button>
-            </div>
-            <div>
-                <input type="number" placeholder='id' value={id} onChange={(e) => setId(e.target.value)}/>
-                <input type="text" placeholder='Bike name' value={bikename} onChange={(e) => setBikename(e.target.value)}/>
-                <input type="number" placeholder='Bike owner' value={bikeownerId} onChange={(e) => setBikeOwner(e.target.value)}/>
-                <button onClick={() => GetBike(id)}>GetBike</button> 
-                <button onClick={GetBikes}>GetBikes</button> 
-                <button onClick={CreateBike}>AddBike</button> 
-                <button onClick={() => PutBike(id)}>UpdateBike</button> 
-                <button onClick={() => DeleteBike(id)}>DeleteBike</button> 
-            </div>
-
-            {result.length > 0 && result.map(bike => 
-                 <div key={bike.id}>
-                    <p>Id: {bike.id}</p>
-                    <p>Name: {bike.model_sykkelnavn}</p>
-                    <p>Owner: {bike.kunde_id}</p>
+                <div className='servicepage'>
+                    <h1>Dashboard</h1>
+                    <p>You are logged in as {parsed.username}</p>
+                    <button onClick={logout}>Logout</button>
                 </div>
-            )}
+                <div className='inputs'>
+                    <input type="number" placeholder='id' value={id} onChange={(e) => setId(e.target.value)}/>
+                    <input type="text" placeholder='Bike name' value={bikename} onChange={(e) => setBikename(e.target.value)}/>
+                    <input type="number" placeholder='Bike owner' value={bikeownerId} onChange={(e) => setBikeOwner(e.target.value)}/>
+                </div>
+
+                <div className='buttons'>
+                    <button onClick={() => GetBike(id)}>GetBike</button> 
+                    <button onClick={GetBikes}>GetBikes</button> 
+                    <button onClick={CreateBike}>AddBike</button> 
+                    <button onClick={() => PutBike(id)}>UpdateBike</button> 
+                    <button onClick={() => DeleteBike(id)}>DeleteBike</button> 
+                </div>
+
+                <div className='results'>
+                    {result.length > 0 && result.map(bike => 
+                        <div key={bike.id}>
+                            <p>Id: {bike.id}</p>
+                            <p>Name: {bike.model_sykkelnavn}</p>
+                            <p>Owner: {bike.kunde_id}</p>
+                        </div>
+                    )}
+                </div>
+            </div>
         </main>
     )
 }
