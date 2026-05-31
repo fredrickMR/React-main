@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Login from './Login'; 
 import Dashboard from './dashboard';
+import Administrator from "./admin"
 import Mekaniker from './mekaniker';
 import Service from './service';
 import { Route, Routes } from 'react-router-dom';
@@ -9,6 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
   return (<Routes>
     <Route path="/" element={<Login />} />
+    <Route path="/admin" element={<Administrator />} />
     <Route path="/mekaniker" element={<Mekaniker />} />
     <Route path="/service" element={<Service />} />
   </Routes>)

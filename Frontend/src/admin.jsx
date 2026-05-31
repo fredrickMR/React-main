@@ -1,11 +1,12 @@
 import { useState } from 'react';
 // import { Route, Routes } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { jsx } from 'react/jsx-runtime';
 
 function Dashboard()
 {
     const token = localStorage.getItem("token");
+    const navigate = useNavigate();
 
     if(!token)
     {

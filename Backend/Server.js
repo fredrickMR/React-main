@@ -28,6 +28,7 @@ function ReadAuth(req, res, next)
     const verified = jwt.verify(parsed, process.env.SECRET);
 
     if(verified) {
+        req.user = verified;
         next();
     } else {
         return res.status(401).send(error);
@@ -117,6 +118,10 @@ function authenticateAD(username, password)
 app.get('/api', (req, res) => {
   res.json({ message: 'Hello from the server!' });
 });
+
+app.get('/api/role', ReadAuth, (req,res) => {
+    console.log(req.user.roles)
+})
 
 app.post('/api/login', async (req, res) => {
 
