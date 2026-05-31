@@ -171,13 +171,14 @@ function Service()
                 <button onClick={() => PutBike(id)}>UpdateBike</button> 
                 <button onClick={() => DeleteBike(id)}>DeleteBike</button> 
             </div>
-            {result && 
-                <div>
-                    <p>Id: {result.id}</p>
-                    <p>Name: {result.model_sykkelnavn}</p>
-                    <p>Owner: {result.kunde_id}</p>
+
+            {result.length > 0 && result.map(bike => 
+                 <div key={bike}>
+                    <p>Id: {bike.id}</p>
+                    <p>Name: {bike.model_sykkelnavn}</p>
+                    <p>Owner: {bike.kunde_id}</p>
                 </div>
-            }
+            )}
         </main>
     )
 }
