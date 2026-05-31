@@ -160,6 +160,7 @@ app.get('/api/bike/getall', ReadAuth , async (req, res) => {
     } catch(error)
     {
         console.error("GetAll Failed", error);
+        res.status(500).json("Getall failed");
     }
 });
 
@@ -181,6 +182,7 @@ app.get('/api/bike/get/:id', ReadAuth, async (req, res) => {
     } catch(error)
     {
         console.error("Get failed", error);
+        res.status(500).json("Get failed");
     }
 })
 
@@ -196,6 +198,7 @@ app.post('/api/bike/post', ReadAuth, async(req, res) => {
     } catch (error)
     {
         console.error("Post Failed", error);
+        res.status(500).json("post failed");
     }
 
 })
@@ -213,6 +216,7 @@ app.put('/api/bike/put/:id', ReadAuth, async(req, res) => {
     } catch (error)
     {
         console.error("Put Failed", error);
+        res.status(500).json("put failed");
     }
 })
 
@@ -227,6 +231,7 @@ app.delete('/api/bike/delete/:id', ReadAuth, async(req, res) => {
     } catch(error)
     {
         console.error("Delete Failed", error);
+        res.status(500).json("delete failed");
     }
 })
 
