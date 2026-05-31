@@ -158,7 +158,7 @@ app.get('/api/bike/getall', ReadAuth , async (req, res) => {
     res.json(result.rows)
 });
 
-app.get('/api/bike/get', ReadAuth, async (req, res) => {
+app.get('/api/bike/get/:id', ReadAuth, async (req, res) => {
     const bikeid = req.params.id
 
     const result = await pool.query(

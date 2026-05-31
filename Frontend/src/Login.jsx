@@ -28,11 +28,11 @@ function Login() {
 
       switch(roles[0])
       {
-          case "Mekanikere":
-              navigate("/mekaniker")
-              break;
           case "Service":
               navigate("/service")
+              break;
+          case "Mekaniker":
+              navigate("/mekaniker")
       };
     } else {
       alert("Login failed");

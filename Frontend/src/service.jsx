@@ -1,11 +1,12 @@
 import { use, useState } from 'react';
 // import { Route, Routes } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { jsx } from 'react/jsx-runtime';
 
 function Service()
 {
     const token = localStorage.getItem("token");
+    const navigate = useNavigate();
     const [bikes, setBikes] = useState([]);
     const [bike, setBike] = useState([]);
     const [id, setId] = useState(0);
@@ -18,7 +19,7 @@ function Service()
     function logout()
     {
         localStorage.removeItem("token");
-        Navigate("/");
+        navigate("/");
     }
 
     const parsed = JSON.parse(atob(token.split(".")[1]));
@@ -56,11 +57,11 @@ function Service()
             <div>
                 <h1>Dashboard</h1>
                 <p>You are logged in as {parsed.username}</p>
-                <button onClick={() => logout}>Logout</button>
+                <button onClick={logout}>Logout</button>
             </div>
             <div>
                 <h1>GetALL</h1>
-                <button onClick={() => GetBikes}>GetBikes</button>
+                <button onClick={GetBikes}>GetBikes</button>
             </div>
             <div>
                 <h1>GetBike</h1>
