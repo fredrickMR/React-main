@@ -18,7 +18,7 @@ function Dashboard()
     {
         localStorage.removeItem("token");
         localStorage.removeItem("roles");
-        return (<Navigate to="/" />)
+        navigate("/");
     }
 
     const parsed = JSON.parse(atob(token.split(".")[1]));
