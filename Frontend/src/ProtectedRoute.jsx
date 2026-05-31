@@ -1,8 +1,10 @@
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
+
 
 function ProtectedRoute({ children, allowedrole }) {
     const token = localStorage.getItem("token");
     const roles = JSON.parse(localStorage.getItem("roles"));
+    const location = useLocation();
 
     if(!token)
     {
@@ -16,7 +18,7 @@ function ProtectedRoute({ children, allowedrole }) {
 
     if(!roles.includes(allowedrole))
     {
-        return (<Navigate to="/" />)
+        return (<Navigate to={location.pathname || "/"} />)
     }
 
   return children
