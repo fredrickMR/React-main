@@ -12,13 +12,13 @@ function App() {
   return (<Routes>
     <Route path="/" element={<Login />} />
     <Route path="/admin" element={
-      <ProtectedRoute allowedrole={"Admin"}> <Administrator /> </ProtectedRoute>
+      <ProtectedRoute allowedrole={"Administrators"}> <Administrator /> </ProtectedRoute>
     } />
     <Route path="/mekaniker" element={
       <ProtectedRoute allowedrole={"Mekanikere"}> <Mekaniker /> </ProtectedRoute>
     } />
     <Route path="/service" element={
-      <ProtectedRoute allowedrole={"Service"}> <Service /> </ProtectedRoute>
+      <ProtectedRoute allowedrole={"ServiceAdministratorer"}> <Service /> </ProtectedRoute>
     } />
   </Routes>)
 }

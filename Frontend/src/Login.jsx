@@ -30,13 +30,13 @@ function Login() {
 
       switch(true)
       {
-          case roles.includes("Service"):
+          case roles.includes("ServiceAdministratorer"):
               navigate("/service")
               break;
           case roles.includes("Mekanikere"):
               navigate("/mekaniker")
               break;
-          case roles.includes("Admin"):
+          case roles.includes("Administrators"):
               navigate("/admin")
               break;
           default:
