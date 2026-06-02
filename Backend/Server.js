@@ -78,11 +78,11 @@ function authenticateAD(username, password)
     return new Promise((resolve) =>
     {
         const client = ldap.createClient({
-            url: "ldaps://dc.sykkelfix.as:636",
+            url: "ldaps://dc.biltrobbel.as:636",
             tlsOptions: {rejectUnauthorized: false}
         });
 
-        const userPrincipal = `${username}@sykkelfix.as`;
+        const userPrincipal = `${username}@biltrobbel.as`;
 
         client.bind(userPrincipal, password, (err) => {
             if(err) {
@@ -101,7 +101,7 @@ function authenticateAD(username, password)
             
             let roles = []
 
-            client.search("dc=sykkelfix, dc=as", options, (err, searchRes) => {
+            client.search("dc=biltrobbel, dc=as", options, (err, searchRes) => {
                 searchRes.on('searchEntry', (entry) => {
                     console.log("entry: ", entry)
 
