@@ -179,9 +179,9 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.get('/api/bike/getall', ReadAuth , async (req, res) => {
+app.get('/api/kunde/getall', ReadAuth , async (req, res) => {
     try{
-        const result = await pool.query('SELECT * FROM sykkler')
+        const result = await pool.query('SELECT * FROM kunde')
         res.json(result.rows)
     } catch(error)
     {
@@ -190,13 +190,13 @@ app.get('/api/bike/getall', ReadAuth , async (req, res) => {
     }
 });
 
-app.get('/api/bike/get/:id', ReadAuth, async (req, res) => {
+app.get('/api/kunde/get/:id', ReadAuth, async (req, res) => {
     try{
-        const bikeid = req.params.id
+        const kunde_id = req.params.id
 
         const result = await pool.query(
-            'SELECT * FROM sykkler WHERE id = $1',
-            [bikeid]
+            'SELECT * FROM kunde WHERE id = $1',
+            [kunde_id]
         );
 
         if(result.rows.length == 0)
@@ -212,12 +212,12 @@ app.get('/api/bike/get/:id', ReadAuth, async (req, res) => {
     }
 })
 
-app.post('/api/bike/post', ReadAuth, async(req, res) => {
+app.post('/api/kunde/post', ReadAuth, async(req, res) => {
     try{
-        const {bikename, bikeownerId} = req.body;
+        const {navn} = req.body;
         const result = await pool.query(
-            'INSERT INTO sykkler (model_sykkelnavn, kunde_id) VALUES ($1, $2) RETURNING *',
-            [bikename, bikeownerId]
+            'INSERT INTO kunde (navn) VALUES ($1) RETURNING *',
+            [navn]
         );
 
         res.json(result.rows[0]);
@@ -229,14 +229,14 @@ app.post('/api/bike/post', ReadAuth, async(req, res) => {
 
 })
 
-app.put('/api/bike/put/:id', ReadAuth, async(req, res) => {
+app.put('/api/kunde/put/:id', ReadAuth, async(req, res) => {
     try{
-        const {bikename, bikeownerId} = req.body;
-        const bikeid = req.params.id;
+        const {navn} = req.body;
+        const kunde_id = req.params.id;
 
         const result = await pool.query(
-            'UPDATE sykkler SET model_sykkelnavn = $1, kunde_id = $2 WHERE id = $3 RETURNING *',
-            [bikename, bikeownerId, bikeid]
+            'UPDATE kunde SET navn = $1 WHERE id = $2 RETURNING *',
+            [navn, kunde_id]
         );
         res.json(result.rows[0]);
     } catch (error)
@@ -246,12 +246,12 @@ app.put('/api/bike/put/:id', ReadAuth, async(req, res) => {
     }
 })
 
-app.delete('/api/bike/delete/:id', ReadAuth, async(req, res) => {
+app.delete('/api/kunde/delete/:id', ReadAuth, async(req, res) => {
     try{
-        const bikeid = req.params.id;
+        const kunde_id = req.params.id;
         const result = await pool.query(
-            'DELETE FROM sykkler WHERE id = $1 RETURNING *',
-            [bikeid]
+            'DELETE FROM kunde WHERE id = $1 RETURNING *',
+            [kunde_id]
         );
         res.json(result.rows[0]);
     } catch(error)

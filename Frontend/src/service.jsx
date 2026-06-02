@@ -9,16 +9,15 @@ function Service()
     const token = localStorage.getItem("token");
     const roles = localStorage.getItem("roles");
     const navigate = useNavigate();
-    const [bikes, setBikes] = useState([]);
-    const [bike, setBike] = useState([]);
+    const [kunder, setKunder] = useState([]);
+    const [kunde, setKunde] = useState([]);
 
     const [id, setId] = useState(0);
-    const [bikename, setBikename] = useState("");
-    const [bikeownerId, setBikeOwner] = useState(0);
+    const [kundenNavn, setNavn] = useState("");
 
     const [result, setResult] = useState([]);
 
-    if(!token && roles != "Service")
+    if(!token && roles != "ServiceAdministratorer")
     {
         return (<Navigate to="/" />)
     }
@@ -37,9 +36,9 @@ function Service()
 
     
 
-    async function GetBikes() {
+    async function GetKunder() {
         try{
-            const result = await fetch ('/api/bike/getall', {
+            const result = await fetch ('/api/kunde/getall', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -51,20 +50,19 @@ function Service()
             setResult(data);
 
             console.log(data);
-            setBikes(data);
+            setKunder(data);
 
             setId(null);
-            setBikename("");
-            setBikeOwner(null);
+            setNavn("");
         } catch (error)
         {
             console.error("Frontend GetBikes Failed", error)
         }
     }
 
-    async function GetBike(_id) {
+    async function GetKunde(_id) {
         try{
-            const result = await fetch(`/api/bike/get/${_id}`, {
+            const result = await fetch(`/api/kunde/get/${_id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,20 +74,19 @@ function Service()
             setResult(data);
 
             console.log(data);
-            setBike(data);
+            setKunde(data);
 
             setId(null);
-            setBikename("");
-            setBikeOwner(null);
+            setNavn("");
         } catch(error)
         {
             console.error("Frontend Get bike failed", error);
         }
     }
 
-    async function CreateBike(){
+    async function CreateKunde(){
         try{
-            const result = await fetch('/api/bike/post', {
+            const result = await fetch('/api/kunde/post', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,18 +101,17 @@ function Service()
             console.log(data);
 
             setId(null);
-            setBikename("");
-            setBikeOwner(null);
+            setNavn("");
         } catch(error)
         {
             console.error("Frontend Create Failed", error);
         }
     }
 
-    async function DeleteBike(_id)
+    async function DeleteKunde(_id)
     {
         try{
-            const result = await fetch(`/api/bike/delete/${_id}`, {
+            const result = await fetch(`/api/kunde/delete/${_id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -129,18 +125,17 @@ function Service()
             console.log(data);
 
             setId(null);
-            setBikename("");
-            setBikeOwner(null);
+            setNavn("");
         } catch(error)
         {
             console.error("Frontend Delete Failed", error);
         }
     }
 
-    async function PutBike(_id)
+    async function PutKunde(_id)
     {
         try{
-            const result = await fetch(`/api/bike/put/${_id}`, {
+            const result = await fetch(`/api/kunde/put/${_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -154,8 +149,7 @@ function Service()
 
             console.log(data);
             setId(null);
-            setBikename("");
-            setBikeOwner(null);
+            setNavn("");
         } catch (error)
         {
             console.error("Frontend Put Failed", error);
@@ -172,32 +166,29 @@ function Service()
                 </div>
                 <div className='inputs'>
                     <input type="number" placeholder='id' value={id} onChange={(e) => setId(e.target.value)}/>
-                    <input type="text" placeholder='Bike name' value={bikename} onChange={(e) => setBikename(e.target.value)}/>
-                    <input type="number" placeholder='Bike owner' value={bikeownerId} onChange={(e) => setBikeOwner(e.target.value)}/>
+                    <input type="text" placeholder='Bike name' value={bikename} onChange={(e) => setNavn(e.target.value)}/>
                 </div>
 
                 <div className='buttons'>
-                    <button onClick={() => GetBike(id)}>GetBike</button> 
-                    <button onClick={GetBikes}>GetBikes</button> 
-                    <button onClick={CreateBike}>AddBike</button> 
-                    <button onClick={() => PutBike(id)}>UpdateBike</button> 
-                    <button onClick={() => DeleteBike(id)}>DeleteBike</button> 
+                    <button onClick={() => GetKunde(id)}>Get</button> 
+                    <button onClick={GetBikes}>GetAll</button> 
+                    <button onClick={CreateBike}>Post</button> 
+                    <button onClick={() => PutKunde(id)}>Put</button> 
+                    <button onClick={() => DeleteKunde(id)}>Delete</button> 
                 </div>
 
                 <div className='results'>
-                    {Array.isArray(result) ? result.map(bike => 
-                        <div key={bike.id} className='bike-card'>
-                            <p>Id: {bike.id}</p> 
-                            <p>Name: {bike.model_sykkelnavn}</p>
-                            <p>Owner: {bike.kunde_id}</p>
-                            <button onClick={() => DeleteBike(bike.id)}>Delete</button>
+                    {Array.isArray(result) ? result.map(kunde => 
+                        <div key={kunde.kunde_id} className='bike-card'>
+                            <p>Id: {kunde.kunde_id}</p> 
+                            <p>Name: {kunde.navn}</p>
+                            <button onClick={() => DeleteKunde(kunde.kunde_id)}>Delete</button>
                         </div>
                     ) : result ? (
                         <div className='bike-card'>
-                            <p>Id: {result.id}</p> 
-                            <p>Name: {result.model_sykkelnavn}</p>
-                            <p>Owner: {result.kunde_id}</p>
-                            <button onClick={() => DeleteBike(bike.id)}>Delete</button>
+                            <p>Id: {result.kunde_id}</p> 
+                            <p>Name: {result.navn}</p>
+                            <button onClick={() => DeleteKunde(kunde.kunde_id)}>Delete</button>
                         </div>
                     ) : null}
                 </div>
